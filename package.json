@@ -1,10 +1,9 @@
 {
-  "name": "catch-stdout",
-  "version": "0.0.1",
-  "description": "Catch stdout (useful for testing)",
+  "name": "catch-stdio",
+  "version": "1.0.0",
+  "description": "Catch stdio (useful for testing)",
   "keywords": [],
   "author": "Matthew Mueller <matt@lapwinglabs.com>",
-  "repository": { "type": "git", "url": "git://github.com/lapwinglabs/catch-stdout.git" },
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",

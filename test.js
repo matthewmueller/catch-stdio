@@ -1,11 +1,21 @@
+var Stream = require('stream').PassThrough
 var stdio = require('./')
 
-var stderr = stdio.stderr()
-var stdout = stdio.stdout()
+var se = new Stream()
+var so = new Stream()
 
-console.log('hi hi')
+var stderr = stdio.stderr(se)
+// var stdout = stdio.stdout(so)
+
+se.on('data', function(str) {
+  console.log(str.toString())
+})
+
+// console.log('hi hi')
 console.error('some error!!!')
 console.error('some error 2')
 
-console.error('stderr', stderr())
-console.log('stdout', stdout())
+console.error(stderr())
+// console.log('stdout', stdout())
+
+

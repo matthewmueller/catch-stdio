@@ -18,18 +18,20 @@ module.exports = {
  * Monkey-patch `stdout`
  */
 
-function stdout() {
+function stdout (stream) {
   var ret = '';
 
   process.stdout.write = (function(write){
     return function(str, enc, fd) {
+      stream && stream.write(str.replace(/\n$/, ''))
       ret += str;
     };
   })(old_stdout);
 
   return function restore() {
     process.stdout.write = old_stdout;
-    return ret.replace(/\n$/, '');
+    stream && stream.end()
+    return ret;
   }
 }
 
@@ -37,17 +39,19 @@ function stdout() {
  * Monkey-patch `stderr`
  */
 
-function stderr() {
+function stderr(stream) {
   var ret = '';
 
   process.stderr.write = (function(write){
     return function(str, enc, fd) {
+      stream && stream.write(str.replace(/\n$/, ''))
       ret += str;
     };
   })(old_stderr);
 
   return function restore() {
     process.stderr.write = old_stderr;
+    stream && stream.end()
     return ret.replace(/\n$/, '');
   }
 }
